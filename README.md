@@ -12,4 +12,4 @@ You will find data from several properties in Madrid as well as some historical 
  • Generative Models (LDA, QDA)
  • KNN3
 
-Extra - use other methods you may know and compare results with the previous ones.
+Extra - implement other methods and models to gain insights on relationships the data have. 
