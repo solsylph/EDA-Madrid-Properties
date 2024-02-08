@@ -81,4 +81,81 @@ This was the linear regression's overall performance. It's R² value is high eno
 ## Categorical Problem Remodeling
 
 
+The classification problem I would like to propose manipulates two variables, inm_size and inm_distrito, and predicts the price based off of these two factors. Then, the different classifying algorithms would sort the prices into 'bargain' and 'expensive categories. which are sensitive to the average price per square meter in any given district.
+
+My idea was basically to create a column which takes the average price for a property and the average size as features to be addressed; if the price is lower and the square meters are higher than the average for the district then it's considered a bargain. Likewise, if the price per square meter in a property is above the average for the district then it is considered expensive.
+
+-> for this we can nerf all other columns, only include size and price per distrito to create the necessary numerical columns, and encode categorical variables like the category and the distritos.
+
+-> create a new column which states theaverage price for a property in the distrito
+
+-> create a new column which states the average size for a property in the distrito
+
+-> create a new column where you divide the number of square meters into the price (price/size) and that is your price per square meter on average for the distrito.
+
+-> there will only be as many averages as there are distritos, and each data point will have its respective average based on the distrito it is in.
+
+-> we would also have to calculate the price per square meter for that property as well.
+
+-> this means we have at least 4 new columns added to the dataset aside from the distrito one hot encoding.
+
+-> if the price lies is at or less than the average expected price then it is a bargain.
+
+-> if the price of the price per square meter of the property is greater than the average per district then it's expensive.
+
+
+After I cleaned the dataframe for the linear regression, I created a copy of it which I then used to implement the categorical models. Then, I dropped all columns which were unnecessary aside from those from which I will engineer my new features:
+
+![image](https://github.com/solsylph/Models-Madrid-Properties/assets/126614634/a0410083-582b-45f8-bb84-bb47e2c21b1a)
+
+Aside from dummifying 'inm_distrito' like above, I also implemented other blocks of code which created the new features and the thresholds for the categories:
+![image](https://github.com/solsylph/Models-Madrid-Properties/assets/126614634/8981e0af-f3ac-42f9-88f7-d9407624d8de)
+
+![image](https://github.com/solsylph/Models-Madrid-Properties/assets/126614634/e6dc297b-c9be-4c77-b73c-0677b3335cc2)
+
+After preparing the new dataframe for the different models, it was time to pick the new features and target variables:
+![image](https://github.com/solsylph/Models-Madrid-Properties/assets/126614634/40a677be-5e99-49fc-97fb-354cd20f642f)
+
+### Perceptron
+
+![image](https://github.com/solsylph/Models-Madrid-Properties/assets/126614634/b7dc3188-181e-4887-ba7c-d15dc83fc074)
+
+A perceptron model is very well-adjusted for binary classification such as this. 
+
+### Logistic Regression
+
+![image](https://github.com/solsylph/Models-Madrid-Properties/assets/126614634/4446aa39-8ebf-4521-a362-8cb54498dee8)
+
+The model performs very well! Yay. It was necessary to tweak the maximum number of iterations to learn for the sake of fine tuning the model. If we go over 31 iterations the model overfits and predicts everything perfectly. Overfitting is something we want to avoid because the model may behave very well with a dataset that it is familiar with but not very well with a dataset it hasn't seen before that may follow similar trends to the ones outlined.  
+
+### KNN
+
+![image](https://github.com/solsylph/Models-Madrid-Properties/assets/126614634/a8fa641a-a3ee-4e6d-9c30-d60dad55f593)
+
+KNN behaves very well with this classification problem. KNN has learned very well on its training data, but overfitting is a big problem if we want to generalize the model outside of the proposed classification problem. 
+
+Overfitting is something we want to avoid because the model may behave very well with a dataset that it is familiar with but not very well with a dataset it hasn't seen before that may follow similar trends to the ones outlined. 
+
+### LDA
+![image](https://github.com/solsylph/Models-Madrid-Properties/assets/126614634/b7d1beaa-c7c2-4a03-9419-fc16b6e016ae)
+
+The great performance for the LDA means that it did a great job of determining whether or not an apartment had good value based on the aformentioned criterion that was possed at the beginning of the classification problem.This makes sense, because sorting the two variables into straightforward categories is easy. 
+
+### QDA
+
+![image](https://github.com/solsylph/Models-Madrid-Properties/assets/126614634/4a1b3671-084d-4f65-834a-0bcdfbb309fb)
+
+Therefore, it also makes sense that the performance of the QDA was perhaps too complex for the nature of the problem, and because of this it ended up performing the worst out of all the models. This can be due to the fact that it adds an unnecessary layer of complexity to the proposed problem which is not relevant at the time of sorting. 
+
+### EXTRA MODEL: Decision Trees
+
+![image](https://github.com/solsylph/Models-Madrid-Properties/assets/126614634/6b69a65f-6f90-4938-b6e1-1598a0b03db7)
+
+This decision tree has a very VERY high accuracy. It's concerning, but it is also nice to see which models are best suited for this type of task. 
+
+Overall, I would pick PLA, Logistic Regression, and LDA as the models with the best balance between model flexibility and accuracy. 
+
+## Further improvements
+
+If I were to redo this assignment with a different data set, I would like to test a linear regression with features similar to the ones I picked for an initial build and then determine if factors such as location, size, and index of studied populations also affect the price so significantly. I would also like to look into indecies such as marital index, and number of children per household because these are factors that can influence the affluence of a community/district.
 
