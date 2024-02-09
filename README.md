@@ -14,9 +14,13 @@ You will find data from several properties in Madrid as well as some historical 
 ## Libraries Used: 
 
 import pandas as pd ##used to handle the dataframes and do operations
+
 import sklearn ##used to train the models, including all modules involve perceptron learning algorithms, logistic regression, knn, LDA, QDA, and decision trees 
+
 import numpy as np ##sift through data and handle it in an easy fashion (especially for KNN)
+
 import matplotlib.pylab as plt ##visualization
+
 import seaborn as sns ##generating plots
 
 ## Exploratory Data Analysis
